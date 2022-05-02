@@ -12,24 +12,23 @@ const iframe = document.querySelector('iframe');
         console.log('title:', title);
     });
 
-    // ----------------------------------------------------
-
     const onPlay = function(data) {
     localStorage.setItem("videoplayer-current-time", data.seconds);
 };
-player.on('play', throttle(onPlay, 500));
+player.on('play', throttle(onPlay, 1000));
 
-const savePlayedSeconds = localStorage.getItem("videoplayer-current-time");
-player.setCurrentTime(Number(savePlayedSeconds)).then(function(seconds) {
-    seconds = Number(savePlayedSeconds);
+const saveTime = localStorage.getItem("videoplayer-current-time");
+player.setCurrentTime(Number(saveTime)).then(function(seconds) {
+    seconds = Number(saveTime);
 }).catch(function(error) {
     switch (error.name) {
         case 'RangeError':
-            console.log('Time Error');
+            console.log('Error time');
             break;
 
         default:
-            console.log('Other Error');
+            console.log('Error other');
             break;
     }
 });
+
